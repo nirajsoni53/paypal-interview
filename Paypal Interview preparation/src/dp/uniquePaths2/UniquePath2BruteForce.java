@@ -1,0 +1,46 @@
+package dp.uniquePaths2;
+
+/*
+* Time: O(2 ^ n)
+* Time: O(1)
+*
+* S  0  0
+* 0  1  0
+* 0  0  E
+*
+* 1 indicate obstacle
+
+                        Story :
+
+  A robot is located at the top-left corner of a m x n grid
+  (marked 'Start' in the diagram below).
+  The robot can only move either down or right at any point in time.
+  The robot is trying to reach the bottom-right corner of the grid
+  (marked 'Finish' in the diagram below).
+
+  Now consider if some obstacles are added to the grids. How many unique paths would there be?
+
+  An obstacle and space is marked as 1 and 0 respectively in the grid.
+
+    Input: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]
+    Output: 2
+    Explanation: There is one obstacle in the middle of the 3x3 grid above.
+    There are two ways to reach the bottom-right corner:
+    1. Right -> Right -> Down -> Down
+    2. Down -> Down -> Right -> Right
+* */
+public class UniquePath2BruteForce {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        return uniquePathsWithObstacles(obstacleGrid, 0, 0);
+    }
+
+    public int uniquePathsWithObstacles(int[][] obstacleGrid, int i, int j) {
+        if(i >= obstacleGrid.length || j >= obstacleGrid[0].length) return 0;
+
+        if(obstacleGrid[i][j] == 1) return 0;
+        if(i == obstacleGrid.length - 1 && j == obstacleGrid[0].length - 1) return 1;
+
+        return uniquePathsWithObstacles(obstacleGrid, i, j + 1) +
+                uniquePathsWithObstacles(obstacleGrid, i + 1, j);
+    }
+}
